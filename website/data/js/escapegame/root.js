@@ -11,7 +11,11 @@ if(debug){
 jQuery.getJSON(request_base+"api.php?action=1", function(result){
         
         document.getElementById('name').innerHTML = result["game"];
+        console.log("game is called " + result["game"]);
         timer_duration = result["duration"];
+        var fancy_version = "</br>Version " + result['version'][0] + "." + 
+                result['version'][1] + "." + result['version'][2];
+        document.getElementById('footer-text').innerHTML += fancy_version;
 
 });
 
@@ -25,8 +29,9 @@ jQuery.getJSON(request_base+"api.php?action=3", function(result){
                 console.debug("Adding element number " + index + ": " +
                         element['name'] );
 		document.getElementById('elements').innerHTML += 
-		        "<p><button class=\"event btn btn-dark\" id=\"" + 
-                        index + "\" href=\"#"+element['name']+"\">" + 
+		        "<p><button class=\"event btn btn-dark\" id=\"element-"
+                        + index + "\" href=\"#"+element['name']+
+                        "\" onclick=\"trigger_event(" + index + ")\" >" + 
                         element["name"] + "</button></p>";
 	});
 });
@@ -34,16 +39,45 @@ jQuery.getJSON(request_base+"api.php?action=3", function(result){
 function update_escape(){
         
         jQuery.getJSON(request_base+"api.php?action=2", function(result){
-                if(result['start_time'] != 0){
-                        document.getElementbyId('countdown').innerHTML = 
+                
+                console.log("start time is " + result['start_time']);
+                
+                if(Number(result['start_time']) == 0){
+                        document.getElementById('countdown').innerHTML = 
                                 "READY";
                 }else{
                         var counter = timer_duration + (result['start_time'] - 
                                 (Date.now()/1000));
                         
                 }
-                document.getElementById('name').innerHTML = result["game"];
+                
+                result['events'].forEach(function(element,index){
+                        
+                        /* It's spelt like this for a reason, although i can't
+                         * remember which one.
+                         */ 
+                        var elemnt = 
+                                document.getElementById("element-" + index);
+                        /* Clear element from button classes */
+                        elemnt.classList.remove("btn-danger");
+                        elemnt.classList.remove("btn-success");
+                        elemnt.classList.remove("btn-dark");
+                                
+                        if(Number(element) == 0){
+                                elemnt.classList.add("btn-danger");
+                        }else{
+                                elemnt.classList.add("btn-success");
+                                
+                        }
+                });
 
         });
 }
-update_escape();
+
+function trigger_event(event_id){
+
+        jQuery.getJSON(request_base+"api.php?action=4&event=" + event_id, 
+                function(result){});
+
+}
+setInterval(update_escape,500);

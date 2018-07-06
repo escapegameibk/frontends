@@ -35,14 +35,13 @@ function generate_footer(){
         return "
                  <footer class=\"mastfoot mt-auto footer-static\">
                         <div class=\"inner\">
-                                <span class=\"text-muted\"> INTERNAL USAGE GRANTED</span>
+                                <span id=\"footer-text\" class=\"text-muted\"> INTERNAL USAGE GRANTED</span>
                         </div>
                 </footer>
 ";
 }
 
 
-$datalocation = "/esc/data";
 $socketpath = "/var/run/escape/socket";
 
 $DEBUG = true;

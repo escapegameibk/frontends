@@ -53,9 +53,24 @@ if($debug){
         logger(fread($sock,2048));
 }
 
+if($action == 4){
+        $event_id = 0;
+        if(isset($_POST['event'])){
+                $event_id = $_POST['event'];
+        }else{
+                $event_id = $_GET['event'];
+        }
+       
+        $output = json_encode(["action" => $action, "event" => $event_id]);
+        
+}else{
 
-fwrite($sock,json_encode(["action" => $action]));
-echo fread($sock,2048);
+        $output = json_encode(["action" => $action]);
+}
 
+fwrite($sock,$output);
+if($action != 4){
+        echo fread($sock,2048);
+}
 fclose($sock);
 
