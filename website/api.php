@@ -70,7 +70,7 @@ if($action == 4){
 
 fwrite($sock,$output);
 if($action != 4){
-        echo fread($sock,2048);
+        echo fread($sock,20480);
 }
 fclose($sock);
 
