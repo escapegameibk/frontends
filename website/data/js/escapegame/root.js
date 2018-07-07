@@ -13,7 +13,7 @@ jQuery.getJSON(request_base+"api.php?action=1", function(result){
         document.getElementById('name').innerHTML = result["game"];
         console.log("game is called " + result["game"]);
         timer_duration = result["duration"];
-        var fancy_version = "</br>Version " + result['version'][0] + "." + 
+        var fancy_version = " V" + result['version'][0] + "." + 
                 result['version'][1] + "." + result['version'][2];
         document.getElementById('footer-text').innerHTML += fancy_version;
 
@@ -27,12 +27,12 @@ jQuery.getJSON(request_base+"api.php?action=3", function(result){
 
 	result.forEach(function(element,index) {
                 console.debug("Adding element number " + index + ": " +
-                        element['name'] );
+                        element );
 		document.getElementById('elements').innerHTML += 
 		        "<p><button class=\"event btn btn-dark\" id=\"element-"
-                        + index + "\" href=\"#"+element['name']+
+                        + index + "\" href=\"#"+element+
                         "\" onclick=\"trigger_event(" + index + ")\" >" + 
-                        element["name"] + "</button></p>";
+                        element + "</button></p>";
 	});
 });
 
@@ -48,6 +48,17 @@ function update_escape(){
                 }else{
                         var counter = timer_duration + (result['start_time'] - 
                                 (Date.now()/1000));
+
+                        if(counter < 0){
+                                document.getElementById('countdown').innerHTML = 
+                                        "-"+Math.floor(counter / 60) + ":" + 
+                                        ("0" + Math.floor(counter % 0)).slice(-2);
+                        }else{
+                                document.getElementById('countdown').innerHTML = 
+                                        Math.floor(counter / 60) + ":" + 
+                                        ("0" + Math.floor(counter % 
+                                        60)).slice(-2);
+                        }
                         
                 }
                 

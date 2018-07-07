@@ -33,7 +33,7 @@ function generate_footer(){
 
 
         return "
-                 <footer class=\"mastfoot mt-auto footer-static\">
+                 <footer class=\"footer footer-static\">
                         <div class=\"inner\">
                                 <span id=\"footer-text\" class=\"text-muted\"> INTERNAL USAGE GRANTED</span>
                         </div>
