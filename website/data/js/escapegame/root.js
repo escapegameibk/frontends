@@ -20,7 +20,7 @@ function update_escape(){
 			document.getElementById('name').innerHTML = 
 				result['game'];
 			
-			timer_length = int(result['duration']);
+			timer_length = Number(result['duration']);
 
 		});
 	}else{ /* The most basic information should be present. continue */
