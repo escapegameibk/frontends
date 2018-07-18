@@ -116,7 +116,7 @@ function update_dependencies(){
 				
 				/* Add all events to the div*/
 
-				var dp = result[i];
+				var dp = result[i]['name'];
 
 				document.getElementById('dependencies').innerHTML += 
 					"<button class=\"dep btn btn-dark\""+
