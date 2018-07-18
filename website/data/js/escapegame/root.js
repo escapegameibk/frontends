@@ -3,7 +3,7 @@ var request_base = location.protocol + "//" + window.location.hostname +
 
 console.debug("Using " + request_base + " as request base");
 
-var timer_length = 0, timer_status = 0;
+var timer_duration = 0, timer_status = 0;
 
 var show_dependencies = false;
 
@@ -22,7 +22,7 @@ function update_escape(){
 			document.getElementById('name').innerHTML = 
 				result['game'];
 			
-			timer_length = Number(result['duration']);
+			timer_duration = Number(result['duration']);
 
 		});
 	}else{ /* The most basic information should be present. continue */
