@@ -142,7 +142,7 @@ function update_dependencies(){
 	                depend.classList.remove("btn-dark");
 	                        
 	                if(Number(element) == 0){
-	                        depemd.classList.add("btn-danger");
+	                        depend.classList.add("btn-danger");
 	                }else{
 	                        depend.classList.add("btn-success");
 	                        
