@@ -6,7 +6,7 @@
         margin-left: 9vw;
 	max-width : 41vw;
 	width: 40;
-	right: 0px;
+	left: 0px;
 }
 
 .evnt{
@@ -20,5 +20,5 @@
 	margin-right: 9vw;
 	max-width : 41vw;
 	width : 40;
-	left: 0px;
+	right: 0px;
 }
