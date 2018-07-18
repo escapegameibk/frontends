@@ -17,7 +17,8 @@ function update_escape(){
 			document.getElementById('footer-text').innerHTML = 
 				version[0] + '.' + version[1] + '.' + 
 				version[2];
-			document.getElementById('name') = result['game'];
+			document.getElementById('name').innerHTML = 
+				result['game'];
 			
 			timer_length = int(result['duration']);
 
