@@ -20,7 +20,7 @@ include "global.php";
                         
                 <h1 class="name" id="name">Loading...</h1>
                 </br>
-                <div class="elements" id="elements"></div>
+                <div class="events" id="events"></div>
 		<div class="dependencies" id="dependencies"></div>
                 <script src="<?php echo $outsourcing; ?>/js/escapegame/root.js"></script>
                 <?php echo generate_footer(); ?>

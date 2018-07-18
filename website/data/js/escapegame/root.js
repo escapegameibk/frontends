@@ -1,157 +1,145 @@
-var debug = true;
 var request_base = location.protocol + "//" + window.location.hostname +
         (location.port ? ':'+location.port: '') + '/';
-var timer_duration = 0;
 
-if(debug){
-        console.debug("Using " + request_base + " as base for requests.");
-}
+console.debug("Using " + request_base + " as request base");
 
+var timer_length = 0, timer_status = 0;
 
-/* get all events and display them */
-function set_stuff(){
-
-	/* get the nescessary information and add it to it's place*/
-	jQuery.getJSON(request_base+"api.php?action=1", function(result){
-	        
-	        document.getElementById('name').innerHTML = result["game"];
-	        console.log("game is called " + result["game"]);
-	        timer_duration = result["duration"];
-	        var fancy_version = " V" + result['version'][0] + "." + 
-	                result['version'][1] + "." + result['version'][2];
-	        document.getElementById('footer-text').innerHTML += fancy_version;
-	
-	});
-	jQuery.getJSON(request_base+"api.php?action=3", function(result){
-	        
-	        console.debug("Received list of " + result.length + 
-	                " elements to trigger");
-	
-		result.forEach(function(element,index) {
-	                console.debug("Adding element number " + index + ": " +
-	                        element );
-			document.getElementById('elements').innerHTML += 
-			        "<p><button class=\"event btn btn-dark\" id=\"element-"
-	                        + index + "\" href=\"#"+element+
-	                        "\" onclick=\"trigger_event(" + index + ")\" >" + 
-	                        element + "</button></p>";
-		});
-	});
-}
-
+/* Update as available. Initialize where nescessary. Called continuously*/
 function update_escape(){
-
-	/* If the host hasn't replied yet, retry contacting it and getting all
-	 * nescessary event names. */
-        
+	// Attempt to get info if not existant
 	if(document.getElementById('name').innerHTML == "Loading..."){
-		set_stuff();
-	}else{
+		jQuery.getJSON(request_base+"api.php?action=1", 
+			function(result){
+			
+			var version = result['version'];
 
-	        jQuery.getJSON(request_base+"api.php?action=2", function(result){
-	                
-	                console.log("start time is " + result['start_time']);
-	                
-	                if(Number(result['start_time']) == 0){
-	                        document.getElementById('countdown').innerHTML = 
-	                                "READY";
-	                }else{
-	                        var counter = timer_duration + (result['start_time'] - 
-	                                (Date.now()/1000));
+			document.getElementById('footer-text').innerHTML = 
+				version[0] + '.' + version[1] + '.' + 
+				version[2];
+			document.getElementById('name') = result['game'];
+			
+			timer_length = int(result['duration']);
+
+		});
+	else{ /* The most basic information should be present. continue */
+		update_changeables();
+
+
+	}
+}
+
+
+function update_changeables(){
 	
-	                        if(counter < 0){
-	                                document.getElementById('countdown').innerHTML = 
-	                                        "-"+Math.floor(counter / 60) + ":" + 
-	                                        ("0" + Math.floor(counter % 0)).slice(-2);
-	                        }else{
-	                                document.getElementById('countdown').innerHTML = 
-	                                        Math.floor(counter / 60) + ":" + 
-	                                        ("0" + Math.floor(counter % 
-	                                        60)).slice(-2);
-	                        }
-	                        
-	                }
-	                
-	                result['events'].forEach(function(element,index){
-	                        
-	                        /* It's spelt like this for a reason, although i can't
-	                         * remember which one.
-	                         */ 
-	                        var elemnt = 
-	                                document.getElementById("element-" + index);
-	                        /* Clear element from button classes */
-	                        elemnt.classList.remove("btn-danger");
-	                        elemnt.classList.remove("btn-success");
-	                        elemnt.classList.remove("btn-dark");
-	                                
-	                        if(Number(element) == 0){
-	                                elemnt.classList.add("btn-danger");
-	                        }else{
-	                                elemnt.classList.add("btn-success");
-	                                
-	                        }
-	                });
-	
-	        });
+	if(document.getElementById('events').innerHTML == ''){
+		jQuery.getJSON(request_base+"api.php?action=3", 
+			function(result){
+			
+			for(var i = 0; i < result.length; i++){
+				
+				/* Add all events to the div*/
+
+				var ev = result[i];
+
+				document.getElementById('events').innerHTML += 
+					"<button class=\"evnt btn btn-dark\""+
+					"id=\"evnt-" + i + "\" onclick=\""+
+					"trigger_event()\">" + ev + "</button>";
+
+			}
+
+		});
+		
+	}else{
+		jQuery.getJSON(request_base+"api.php?action=2", 
+			function(result){
+			var events = result['events'];
+
+			for(var i = 0; i < events.length; i++){
+				
+				/* Add all events to the div*/
+
+				var ev = events[i];
+				var button = document.getElementById('evnt-' 
+					+ i);
+
+				button.classList.remove("btn-danger");
+				button.classList.remove("btn-success");
+				button.classList.remove("btn-dark");
+				
+				if(Number(ev) == 0){
+					button.classList.add("btn-danger");
+
+				}else{
+					button.classList.add("btn-success");
+					
+				}
+
+			}
+			
+			timer_status = result['start_time'];
+		});
+		
 	}
 
 }
 
+function update_dependencies(){
+	if(document.getElementById('dependencies').innerHTML == ''){
+		jQuery.getJSON(request_base+"api.php?action=6", 
+			function(result){
+			
+			for(var i = 0; i < result.length; i++){
+				
+				/* Add all events to the div*/
+
+				var dp = result[i];
+
+				document.getElementById('dependencies').innerHTML += 
+					"<button class=\"dep btn btn-dark\""+
+					"id=\"dep-" + i + "\">" + dp + "</button>";
+
+			}
+
+		});
+		
+	}else{
+		jQuery.getJSON(request_base+"api.php?action=7", 
+			function(result){
+
+			for(var i = 0; i < result.length; i++){
+				
+				/* Add all events to the div*/
+
+				var dp = result[i];
+				var button = document.getElementById('dep-' 
+					+ i);
+
+				button.classList.remove("btn-danger");
+				button.classList.remove("btn-success");
+				button.classList.remove("btn-dark");
+				
+				if(Number(dp) == 0){
+					button.classList.add("btn-danger");
+
+				}else{
+					button.classList.add("btn-success");
+					
+				}
+
+			}
+			
+		});
+		
+	}
+
+	
+}
+
 function trigger_event(event_id){
 
-        jQuery.getJSON(request_base+"api.php?action=4&event=" + event_id, 
+        jQuery.getJSON(request_base+"api.php?action=4&event=" + event_id,
                 function(result){});
 
 }
-
-function enable_dependencies(){
-	
-	jQuery.getJSON(request_base+"api.php?action=6", function(result){
-	        
-	        console.debug("Received list of " + result.length + 
-	                " dependencies");
-	
-		result.forEach(function(element,index) {
-	                console.debug("Adding dependency number " + index + ": " +
-	                        element );
-			document.getElementById('dependencies').innerHTML += 
-			        "<p><button class=\"dependency btn btn-dark\" id=\"dependency-"
-	                        + index + "\" href=\"#"+element+
-	                        "\">" + 
-	                        element['name'] + "</button></p>";
-		});
-	});
-
-	setInterval(update_dependencies,500);
-	
-	
-}
-
-function update_dependencies(){
-	jQuery.getJSON(request_base+"api.php?action=7", function(result){
-	        result.forEach(function(element,index){
-	                        
-	                /* It's spelt like this for a reason, although i can't
-	                 * remember which one.
-	                 */ 
-	                var depend = 
-	                        document.getElementById("dependency-" + index);
-	                /* Clear element from button classes */
-	                depend.classList.remove("btn-danger");
-	                depend.classList.remove("btn-success");
-	                depend.classList.remove("btn-dark");
-	                        
-	                if(Number(element) == 0){
-	                        depend.classList.add("btn-danger");
-	                }else{
-	                        depend.classList.add("btn-success");
-	                        
-	                }
-	        });
-			
-
-	});
-}
-
-enable_dependencies();
-setInterval(update_escape,500);
