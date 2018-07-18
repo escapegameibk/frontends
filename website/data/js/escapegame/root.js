@@ -22,7 +22,7 @@ function update_escape(){
 			timer_length = int(result['duration']);
 
 		});
-	else{ /* The most basic information should be present. continue */
+	}else{ /* The most basic information should be present. continue */
 		update_changeables();
 
 
