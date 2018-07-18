@@ -34,7 +34,9 @@ function update_escape(){
 function update_changeables(){
 	
 	if(document.getElementById('events').innerHTML == ''){
-		jQuery.getJSON(request_base+"api.php?action=3", 
+		jQuery.getJSON(request_base+"api.php?action=3",
+			function(result){ 
+
 			if(document.getElementById('events').innerHTML != ''){
 				/* Too slow */
 				return;
