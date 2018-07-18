@@ -103,4 +103,55 @@ function trigger_event(event_id){
                 function(result){});
 
 }
+
+function enable_dependencies(){
+	
+	jQuery.getJSON(request_base+"api.php?action=6", function(result){
+	        
+	        console.debug("Received list of " + result.length + 
+	                " dependencies");
+	
+		result.forEach(function(element,index) {
+	                console.debug("Adding dependency number " + index + ": " +
+	                        element );
+			document.getElementById('dependencies').innerHTML += 
+			        "<p><button class=\"dependency btn btn-dark\" id=\"dependency-"
+	                        + index + "\" href=\"#"+element+
+	                        "\">" + 
+	                        element + "</button></p>";
+		});
+	});
+
+	setInterval(update_dependencies,500);
+	
+	
+}
+
+function update_dependencies(){
+	jQuery.getJSON(request_base+"api.php?action=7", function(result){
+	        result.forEach(function(element,index){
+	                        
+	                /* It's spelt like this for a reason, although i can't
+	                 * remember which one.
+	                 */ 
+	                var depend = 
+	                        document.getElementById("dependency-" + index);
+	                /* Clear element from button classes */
+	                depend.classList.remove("btn-danger");
+	                depend.classList.remove("btn-success");
+	                depend.classList.remove("btn-dark");
+	                        
+	                if(Number(element) == 0){
+	                        elemnt.classList.add("btn-danger");
+	                }else{
+	                        elemnt.classList.add("btn-success");
+	                        
+	                }
+	        });
+			
+
+	});
+}
+
+enable_dependencies();
 setInterval(update_escape,500);

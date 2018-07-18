@@ -3,5 +3,11 @@
 }
 
 .elements{
-        margin-left: 10vw;
+        margin-left: 9vw;
+	max-width : 41vw;
+}
+
+.dependencies{
+	margin-right: 9vw;
+	max-width : 41vw;
 }
