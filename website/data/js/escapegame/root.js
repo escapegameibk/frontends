@@ -5,6 +5,8 @@ console.debug("Using " + request_base + " as request base");
 
 var timer_length = 0, timer_status = 0;
 
+var show_dependencies = false;
+
 /* Update as available. Initialize where nescessary. Called continuously*/
 function update_escape(){
 	// Attempt to get info if not existant
@@ -25,6 +27,14 @@ function update_escape(){
 		});
 	}else{ /* The most basic information should be present. continue */
 		update_changeables();
+		update_timer();
+
+		if(show_dependencies){
+			update_dependencies();
+		}else{
+			document.getElementById('dependencies').innerHTML = "";
+		}
+
 
 
 	}
@@ -148,6 +158,29 @@ function update_dependencies(){
 	
 }
 
+function update_timer(){
+
+	if(Number(timer_status) == 0){
+	        document.getElementById('countdown').innerHTML = 
+	                "READY";
+	}else{
+	        var counter = timer_duration + (timer_status - 
+	                (Date.now()/1000));
+	
+	        if(counter < 0){
+	                document.getElementById('countdown').innerHTML = 
+	                        "-"+Math.floor(counter / 60) + ":" + 
+	                        ("0" + Math.floor(counter % 0)).slice(-2);
+	        }else{
+	                document.getElementById('countdown').innerHTML = 
+	                        Math.floor(counter / 60) + ":" + 
+	                        ("0" + Math.floor(counter % 
+	                        60)).slice(-2);
+	        }
+	        
+	}
+}
+
 function trigger_event(event_id){
 
         jQuery.getJSON(request_base+"api.php?action=4&event=" + event_id,
@@ -156,3 +189,8 @@ function trigger_event(event_id){
 }
 
 setInterval(update_escape,500);
+
+function toggle_dependencies(){
+	show_dependencies = !show_dependencies;
+}
+

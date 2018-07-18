@@ -22,6 +22,9 @@ include "global.php";
                 </br>
                 <div class="events" id="events"></div>
 		<div class="dependencies" id="dependencies"></div>
+		<button class="btn btn-dark" onclick="enable_dependencies()">
+			show dependencies
+		</button>
                 <script src="<?php echo $outsourcing; ?>/js/escapegame/root.js"></script>
                 <?php echo generate_footer(); ?>
         </body>
