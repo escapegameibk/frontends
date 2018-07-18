@@ -35,7 +35,10 @@ function update_changeables(){
 	
 	if(document.getElementById('events').innerHTML == ''){
 		jQuery.getJSON(request_base+"api.php?action=3", 
-			function(result){
+			if(document.getElementById('events').innerHTML != ''){
+				/* Too slow */
+				return;
+			}
 			
 			for(var i = 0; i < result.length; i++){
 				
@@ -90,6 +93,11 @@ function update_dependencies(){
 	if(document.getElementById('dependencies').innerHTML == ''){
 		jQuery.getJSON(request_base+"api.php?action=6", 
 			function(result){
+
+			if(document.getElementById('dependencies').innerHTML != ''){
+				/* Too slow */
+				return;
+			}
 			
 			for(var i = 0; i < result.length; i++){
 				
