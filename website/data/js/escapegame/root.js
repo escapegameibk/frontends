@@ -118,7 +118,7 @@ function enable_dependencies(){
 			        "<p><button class=\"dependency btn btn-dark\" id=\"dependency-"
 	                        + index + "\" href=\"#"+element+
 	                        "\">" + 
-	                        element + "</button></p>";
+	                        element['name'] + "</button></p>";
 		});
 	});
 
@@ -142,9 +142,9 @@ function update_dependencies(){
 	                depend.classList.remove("btn-dark");
 	                        
 	                if(Number(element) == 0){
-	                        elemnt.classList.add("btn-danger");
+	                        depemd.classList.add("btn-danger");
 	                }else{
-	                        elemnt.classList.add("btn-success");
+	                        depend.classList.add("btn-success");
 	                        
 	                }
 	        });
