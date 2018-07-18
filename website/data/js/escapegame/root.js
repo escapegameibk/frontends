@@ -143,3 +143,5 @@ function trigger_event(event_id){
                 function(result){});
 
 }
+
+setInterval(update_escape,500);
