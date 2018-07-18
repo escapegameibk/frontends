@@ -61,7 +61,8 @@ function update_changeables(){
 				document.getElementById('events').innerHTML += 
 					"<button class=\"evnt btn btn-dark\""+
 					"id=\"evnt-" + i + "\" onclick=\""+
-					"trigger_event()\">" + ev + "</button>";
+					"trigger_event(" + i + ")\">" + 
+					ev + "</button>";
 
 			}
 
@@ -192,5 +193,6 @@ setInterval(update_escape,500);
 
 function toggle_dependencies(){
 	show_dependencies = !show_dependencies;
+	console.debug("Toggling dependencies to " + show_dependencies);
 }
 
