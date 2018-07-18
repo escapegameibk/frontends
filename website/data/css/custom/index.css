@@ -2,10 +2,15 @@
         margin-left: 10vw;
 }
 
-.elements{
+.events{
         margin-left: 9vw;
 	max-width : 41vw;
 	width: 40;
+}
+
+.evnt{
+	margin-left: 1vw;
+	margin-right: 1vw;
 }
 
 .dependencies{
