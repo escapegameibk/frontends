@@ -171,7 +171,7 @@ function update_timer(){
 	        if(counter < 0){
 	                document.getElementById('countdown').innerHTML = 
 	                        "-"+Math.floor(counter / -60) + ":" + 
-	                        ("0" + Math.floor(counter % 60)).slice(-2);
+	                        ("0" + -(Math.floor(counter % 60))).slice(-2);
 	        }else{
 	                document.getElementById('countdown').innerHTML = 
 	                        Math.floor(counter / 60) + ":" + 

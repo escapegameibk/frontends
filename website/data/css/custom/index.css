@@ -3,10 +3,9 @@
 }
 
 .events{
-        margin-left: 5%;
-	max-width : 41%;
-	width: 40%;
+	width: 50%;
 	left: 0px;
+	float: left;
 }
 
 .evnt{
@@ -23,10 +22,12 @@
 }
 
 .dependencies{
-        margin-right: 5%;
-	max-width : 41%;
-	width: 40%;
+	width : 50%;
 	right: 0px;
 	float: right;
 	
+}
+
+.main_content{
+	display: flex;
 }
