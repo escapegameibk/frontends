@@ -20,8 +20,10 @@ include "global.php";
                         
                 <h1 class="name" id="name">Loading...</h1>
                 </br>
-                <div class="events" id="events"></div>
-		<div class="dependencies" id="dependencies"></div>
+		<div class="wrapper">
+			<div class="events" id="events"></div>
+			<div class="dependencies" id="dependencies"></div>
+		</div>
 		<button class="btn btn-dark" onclick="toggle_dependencies()">
 			show dependencies
 		</button>
