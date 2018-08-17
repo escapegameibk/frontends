@@ -3,9 +3,9 @@ var request_base = location.protocol + "//" + window.location.hostname +
 
 console.debug("Using " + request_base + " as request base");
 
-var timer_duration = 0, timer_status = 0;
+var timer_duration = 0, timer_start = 0, timer_end = 0;
 
-var show_dependencies = false;
+var dependencies_loaded = false;
 
 /* Update as available. Initialize where nescessary. Called continuously*/
 function update_escape(){
@@ -28,14 +28,7 @@ function update_escape(){
 	}else{ /* The most basic information should be present. continue */
 		update_changeables();
 		update_timer();
-
-		if(show_dependencies){
-			update_dependencies();
-		}else{
-			document.getElementById('dependencies').innerHTML = "";
-		}
-
-
+		update_dependencies();
 
 	}
 }
@@ -43,11 +36,11 @@ function update_escape(){
 
 function update_changeables(){
 	
-	if(document.getElementById('events').innerHTML == ''){
+	if(document.getElementById('status').innerHTML == ''){
 		jQuery.getJSON(request_base+"api.php?action=3",
 			function(result){ 
 
-			if(document.getElementById('events').innerHTML != ''){
+			if(document.getElementById('status').innerHTML != ''){
 				/* Too slow */
 				return;
 			}
@@ -58,11 +51,12 @@ function update_changeables(){
 
 				var ev = result[i];
 
-				document.getElementById('events').innerHTML += 
-					"<button class=\"evnt btn btn-dark\""+
+				document.getElementById('status').innerHTML += 
+					"<div class=\"row\" id=\"rw-" + i +"\"><div"
+					+ " class=\"col\"><button class=\"evnt btn btn-dark\""+
 					"id=\"evnt-" + i + "\" onclick=\""+
 					"trigger_event(" + i + ")\">" + 
-					ev + "</button>";
+					ev + "</button></div><div class=\"col\" id=\"dps-" + i + "\"></div></div><hr/>";
 
 			}
 
@@ -95,7 +89,8 @@ function update_changeables(){
 
 			}
 			
-			timer_status = result['start_time'];
+			timer_start = result['start_time'];
+			timer_end = result['end_time'];
 		});
 		
 	}
@@ -103,11 +98,11 @@ function update_changeables(){
 }
 
 function update_dependencies(){
-	if(document.getElementById('dependencies').innerHTML == ''){
+	if(!dependencies_loaded){
 		jQuery.getJSON(request_base+"api.php?action=6", 
 			function(result){
 
-			if(document.getElementById('dependencies').innerHTML != ''){
+			if(dependencies_loaded){
 				/* Too slow */
 				return;
 			}
@@ -116,11 +111,12 @@ function update_dependencies(){
 				
 				/* Add all events to the div*/
 
-				var dp = result[i]['name'];
-
-				document.getElementById('dependencies').innerHTML += 
+				var dp = result[i];
+				console.log("Adding dependency " + i);
+				document.getElementById('dps-' + dp["event_id"]).innerHTML += 
 					"<button class=\"dep btn btn-dark\""+
-					"id=\"dep-" + i + "\">" + dp + "</button>";
+					"id=\"dep-" + i + "\">" + dp["name"] + "</button>";
+					dependencies_loaded = true;
 
 			}
 
@@ -161,12 +157,21 @@ function update_dependencies(){
 
 function update_timer(){
 
-	if(Number(timer_status) == 0){
+	if(Number(timer_start) == 0){
 	        document.getElementById('countdown').innerHTML = 
 	                "READY";
 	}else{
-	        var counter = timer_duration + (timer_status - 
-	                (Date.now()/1000));
+
+	        var counter = 0;
+		if(Number(timer_end) == 0){
+			 counter = timer_duration + (timer_start - 
+				(Date.now()/1000));
+		}else{
+			 counter = timer_duration + (timer_start - 
+				timer_end);
+
+		}
+
 	
 	        if(counter < 0){
 	                document.getElementById('countdown').innerHTML = 
@@ -190,9 +195,3 @@ function trigger_event(event_id){
 }
 
 setInterval(update_escape,500);
-
-function toggle_dependencies(){
-	show_dependencies = !show_dependencies;
-	console.debug("Toggling dependencies to " + show_dependencies);
-}
-

@@ -8,6 +8,8 @@
         padding: 1rem;
         background-color: #efefef;
         text-align: center;
+	width: auto;
+	color: #FFFFFF;
 }
 
 body{

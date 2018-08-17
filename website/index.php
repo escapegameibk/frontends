@@ -13,21 +13,14 @@ include "global.php";
         <body>
                 <script src="<?php echo $outsourcing; ?>/js/bootstrap/bootstrap.min.js"></script>
 <script src="<?php echo $outsourcing; ?>/js/jquery/jquery-3.3.1.min.js"></script>
-                <nav class="navbar navbar-light bg-light sticky-top">
-                        <a href="/"><img class="navbar-brand navbar-brnd" src="<?php echo $outsourcing;?>/image/logo.svg" height="50vh"></a>
-                        <span id="countdown" class="countdown navbar-text">00:00</span>
+                <nav class="navbar navbar-dark bg-dark sticky-top">
+                        <a href="/"><img class="navbar-brand navbar-brnd" src="<?php echo $outsourcing;?>/image/logo-white.svg" height="50vh"></a>
+			<h1 id="countdown" class="countdown nav-item">00:00</h2>
                 </nav>
                         
                 <h1 class="name" id="name">Loading...</h1>
                 </br>
-		<div class="row status">
-			<div class="events" id="events"></div>
-			<div class="dependencies" id="dependencies"></div>
-		</div>
-		<hr/>
-		<button class="btn btn-dark" onclick="toggle_dependencies()">
-			show dependencies
-		</button>
+		<div id="status" class="container"></div>
                 <script src="<?php echo $outsourcing; ?>/js/escapegame/root.js"></script>
                 <?php echo generate_footer(); ?>
         </body>

@@ -33,9 +33,9 @@ function generate_footer(){
 
 
         return "
-                 <footer class=\"footer footer-static\">
+                 <footer class=\"footer footer-static bg-dar bg-dark\">
                         <div class=\"inner\">
-                                <span id=\"footer-text\" class=\"text-muted\"> INTERNAL USAGE GRANTED</span>
+                                <span id=\"footer-text\" > INTERNAL USAGE GRANTED</span>
                         </div>
                 </footer>
 ";
