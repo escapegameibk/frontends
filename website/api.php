@@ -38,16 +38,6 @@ if(!$debug){
         header('Content-Type: application/json');
 }
 
-// Open a socket on the default location
-$sock = fsockopen("unix://".$socketpath);
-if(!$sock){
-
-        logger("UNABLE TO OPEN SOCKET!".$errno." ".$errstr);
-        http_response_code(503);
-        die(-2);
-}
-
-
 if($debug){
         fwrite($sock,json_encode(["action" => 1]));
         logger(fread($sock,2048));
@@ -63,9 +53,37 @@ if($action == 4){
        
         $output = json_encode(["action" => $action, "event" => $event_id]);
         
+}elseif($action == 9){
+
+        $event_id = 0;
+        if(isset($_POST['event_id'])){
+                $event_id = $_POST['event_id'];
+        }else{
+                $event_id = $_GET['event_id'];
+        }
+        
+	$hint_id = 0;
+        if(isset($_POST['hint_id'])){
+                $hint_id = $_POST['hint_id'];
+        }else{
+                $hint_id = $_GET['hint_id'];
+        }
+
+        $output = json_encode(["action" => $action, "event_id" => $event_id,
+		"hint_id" => $hint_id]);
+
 }else{
 
         $output = json_encode(["action" => $action]);
+}
+
+// Open a socket on the default location
+$sock = fsockopen("unix://".$socketpath);
+if(!$sock){
+
+        logger("UNABLE TO OPEN SOCKET!".$errno." ".$errstr);
+        http_response_code(503);
+        die(-2);
 }
 
 fwrite($sock,$output);
