@@ -9,6 +9,13 @@
 	margin-right: 1vw;
 }
 
+.hnt{
+	margin-left: 1vw;
+	margin-top: 1vh;
+	margin-bottom: 1vh;
+	margin-right: 1vw;
+}
+
 .dep{
 	margin-left: 1vw;
 	margin-top: 1vh;
@@ -21,6 +28,6 @@ body{
 	background-color: #CECECE;
 }
 
-hr{
-	background-color: #000000;
+.row-delimiter{
+	border-bottom: 1px solid black;
 }
