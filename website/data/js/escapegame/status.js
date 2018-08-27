@@ -94,6 +94,11 @@ function(states){
 	timer_start = states["start_time"];
 	timer_end = states["end_time"];
 	
+	/* If allowed update alarm status */	
+	if(alarm_enabled){
+		alarm_on = states["alarm"];
+	}
+
 	var event_states = states["events"];
 	/* Update event states */
 	for(var i = 0; i < event_states.length; i++){

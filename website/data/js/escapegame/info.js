@@ -34,6 +34,11 @@ function attempt_load_general(){
 		}
 
 
+		if(!(typeof info["alarm"] != 'undefined' && !info["alarm"])){
+			alarm_enabled = true;
+			console.log("The alarm is enabled.");
+			load_alarm();
+		}
 		/* Set the game name */
 		
 		game_duration = Number(info["duration"]);
@@ -91,6 +96,12 @@ function load_colors(colors){
 	if(typeof colors["body"] != 'undefined'){
 		console.log("changeing body color to value: " + colors["body"]);
 		document.body.style.background = colors["body"];
+		
+	}
+	
+	if(typeof colors["alarm"] != 'undefined'){
+		console.log("changeing alarm color to value: " + colors["alarm"]);
+		alarm_color = colors["alarm"];
 		
 	}
 

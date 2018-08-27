@@ -8,6 +8,7 @@ var request_base = location.protocol + "//" + window.location.hostname +
 console.debug("Using " + request_base + " as request base");
 
 var hints_enabled = false;
+var alarm_enabled = false;
 
 var game_duration = 0;
 var timer_start = 0, timer_end = 0;
@@ -51,6 +52,10 @@ function update(){
 	update_states();
 	timer_update();
 	update_dependencies();
+
+	if(alarm_enabled){
+		update_alarm();
+	}
 
 
 	return;

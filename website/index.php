@@ -21,7 +21,9 @@ include "global.php";
                 <h1 class="name" id="name">Loading...</h1>
                 </br>
 		<div id="status" class="container"></div>
+		<div id="control" class="container"></div>
                 <script src="<?php echo $outsourcing; ?>/js/escapegame/info.js"></script>
+                <script src="<?php echo $outsourcing; ?>/js/escapegame/alarm.js"></script>
                 <script src="<?php echo $outsourcing; ?>/js/escapegame/status.js"></script>
                 <script src="<?php echo $outsourcing; ?>/js/escapegame/execute.js"></script>
                 <script src="<?php echo $outsourcing; ?>/js/escapegame/root.js"></script>
