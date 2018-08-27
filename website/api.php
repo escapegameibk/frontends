@@ -43,7 +43,7 @@ if($debug){
         logger(fread($sock,2048));
 }
 
-if($action == 4){
+if($action == 4 || $action == 5){
         $event_id = 0;
         if(isset($_POST['event'])){
                 $event_id = $_POST['event'];
