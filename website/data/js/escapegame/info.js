@@ -24,8 +24,15 @@ function attempt_load_general(){
 		if(!(typeof info["hints"] != 'undefined' && !info["hints"])){
 			hints_enabled = true;
 		}
-
+		
 		console.log("Hints are enabled: " + hints_enabled);
+		
+		if(typeof info["colors"] != 'undefined'){
+			console.log("Colors are defined. attempting to load...");
+			load_colors(info["colors"]);
+			console.log("Applied color scheme");
+		}
+
 
 		/* Set the game name */
 		
@@ -53,4 +60,40 @@ function version_array_to_string(version_arr){
 		}
 	}
 	return version_str;
+}
+
+function load_colors(colors){
+	
+	if(typeof colors["nav"] != 'undefined'){
+		console.log("changeing navbar color to value: " + colors["nav"]);
+		var nav = document.getElementById("nav");
+		nav.classList.remove("bg-dark");
+		nav.classList.remove("navbar-dark");
+		nav.style.background = colors["nav"];
+		
+	}
+	
+	if(typeof colors["footer"] != 'undefined'){
+		console.log("changeing footer color to value: " + colors["footer"]);
+		var foot = document.getElementById("footer");
+		foot.classList.remove("bg-dark");
+		foot.style.background = colors["footer"];
+		
+	}
+	
+	if(typeof colors["countdown"] != 'undefined'){
+		console.log("changeing countdown color to value: " + colors["countdown"]);
+		var cnt = document.getElementById("countdown");
+		cnt.style.color = colors["countdown"];
+		
+	}
+
+	if(typeof colors["body"] != 'undefined'){
+		console.log("changeing body color to value: " + colors["body"]);
+		document.body.style.background = colors["body"];
+		
+	}
+
+	return;
+
 }
