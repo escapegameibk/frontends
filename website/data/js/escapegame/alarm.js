@@ -32,6 +32,8 @@ function load_alarm(){
 
 	var alarm_release = document.getElementById("rel_alarm");
 	alarm_release.classList.add("btn");
+	alarm_release.classList.add("btn-block");
+	alarm_release.classList.add("btn-lg");
 	alarm_release.classList.add("btn-warning");
 	alarm_release.innerHTML = "Release Alarm";
 
