@@ -39,6 +39,11 @@ function attempt_load_general(){
 			console.log("The alarm is enabled.");
 			load_alarm();
 		}
+		
+		if(typeof info["langs"] != 'undefined'){
+			console.log("Languages are defined: " + info["langs"]);
+			load_langs(info["langs"]);
+		}
 		/* Set the game name */
 		
 		game_duration = Number(info["duration"]);
@@ -107,4 +112,34 @@ function load_colors(colors){
 
 	return;
 
+}
+
+function load_langs(langs){
+	
+	var cntrl = document.getElementById("control");
+	cntrl.innerHTML += "<div id=\"lang_row\"></div>";
+
+	var langrow = document.getElementById("lang_row");
+	langrow.classList.add("row");
+	
+	langrow.innerHTML += "<select id=\"language\"></select>";
+	
+	var selector = document.getElementById("language");
+	for(var i = 0; i < langs.length; i++){
+		var option = document.createElement("option");
+		option.text = langs[i];
+		option.value = i;
+		selector.add(option);
+	}
+
+	langrow.innerHTML += "<button id=\"update_lang\" onclick=\"update_language()\"></button>";
+	var btn = document.getElementById("update_lang");
+	btn.classList.add("btn");
+	btn.classList.add("btn-primary");
+	
+	btn.classList.add("lang_update");
+	
+	btn.innerHTML = "Update";
+
+	return;
 }

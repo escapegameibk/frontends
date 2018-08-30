@@ -52,6 +52,17 @@ if($action == 4 || $action == 5){
         }
        
         $output = json_encode(["action" => $action, "event" => $event_id]);
+
+}elseif($action == 11){
+        
+	$lang_id= 0;
+        if(isset($_POST['lang'])){
+                $lang_id = $_POST['lang'];
+        }else{
+                $lang_id = $_GET['lang'];
+        }
+       
+        $output = json_encode(["action" => $action, "lang" => $lang_id]);
         
 }elseif($action == 9){
 

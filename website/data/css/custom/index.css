@@ -31,3 +31,19 @@ body{
 .row-delimiter{
 	border-bottom: 1px solid black;
 }
+
+.lang_update{
+	margin-left: 1vw;
+	margin-top: 1vh;
+	margin-bottom: 1vh;
+	margin-right: 1vw;
+	
+}
+
+#language{
+	margin-left: 1vw;
+	margin-top: 1vh;
+	margin-bottom: 1vh;
+	margin-right: 1vw;
+	
+}

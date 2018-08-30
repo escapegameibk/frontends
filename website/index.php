@@ -16,8 +16,7 @@ include "global.php";
                 <nav id="nav" class="navbar navbar-dark bg-dark sticky-top">
                         <a href="/"><img class="navbar-brand navbar-brnd" src="<?php echo $outsourcing;?>/image/logo-white.svg" height="50vh"></a>
 			<h1 id="countdown" class="countdown nav-item">00:00</h2>
-                </nav>
-                        
+                </nav>        
                 <h1 class="name" id="name">Loading...</h1>
                 </br>
 		<div id="status" class="container"></div>
