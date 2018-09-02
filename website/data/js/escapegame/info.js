@@ -20,6 +20,7 @@ function attempt_load_general(){
 		var game_name = info["game"];
 		console.log("The game's name is set to " + game_name);
 		document.getElementById("name").innerHTML = game_name;
+		document.title = game_name;
 
 		if(!(typeof info["hints"] != 'undefined' && !info["hints"])){
 			hints_enabled = true;
