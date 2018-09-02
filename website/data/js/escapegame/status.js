@@ -61,7 +61,7 @@ function attempt_load_events(){
 			var evcl = document.getElementById("evcl-" + i);
 			evcl.classList.add("col-sm");
 			evcl.innerHTML += "<button id=\"evnt-" + i + 
-			"\" + onclick=\"trigger_event(" + i + ")\"></button>";
+			"\" + onclick=\"press_event(" + i + ")\"></button>";
 			
 			var evnt = document.getElementById("evnt-" + i);
 			evnt.classList.add("btn");

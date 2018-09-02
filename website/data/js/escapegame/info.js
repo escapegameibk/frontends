@@ -40,7 +40,7 @@ function attempt_load_general(){
 			load_alarm();
 		}
 		
-		if(typeof info["langs"] != 'undefined'){
+		if(typeof info["langs"] != 'undefined' && info["langs"] != null){
 			console.log("Languages are defined: " + info["langs"]);
 			load_langs(info["langs"]);
 		}
