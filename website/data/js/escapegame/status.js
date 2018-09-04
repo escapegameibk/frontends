@@ -168,6 +168,9 @@ function attempt_load_hints(){
 				hint.classList.add("btn");
 				hint.classList.add("hnt");
 				hint.classList.add("btn-primary");
+				if(!(typeof hints_evnt[hnt_i]["content"] != 'undefined' && !hints_evnt[hnt_i]["content"])){
+					hint.title =  hints_evnt[hnt_i]["content"];
+				}
 				hint.innerHTML = hints_evnt[hnt_i]["name"];
 				console.log("Loading hint for event " + evnt_i +
 				" " + hnt_i);
