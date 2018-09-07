@@ -35,7 +35,7 @@ function attempt_load_general(){
 		}
 
 
-		if(!(typeof info["alarm"] != 'undefined' && !info["alarm"])){
+		if(!(typeof info["alarm"] == 'undefined' || !info["alarm"])){
 			alarm_enabled = true;
 			console.log("The alarm is enabled.");
 			load_alarm();
