@@ -85,6 +85,8 @@ function attempt_load_events(){
 	return;
 }
 
+var lang = -1;
+
 function update_states(){
 
 jQuery.getJSON(request_base + "api.php?action=2",
@@ -98,8 +100,26 @@ function(states){
 	if(alarm_enabled){
 		alarm_on = states["alarm"];
 	}
+	
+	if(multilanguage){
+		var lang_new = states["lang"];
+	
+		if(lang != lang_new && lang != -1){
+			window.location.reload(false);
+		}
+		if(lang == -1){
+
+			document.getElementById("language").selectedIndex = 
+				lang_new;
+		}
+	
+		lang = lang_new;
+		
+		
+	}
 
 	var event_states = states["events"];
+
 	/* Update event states */
 	for(var i = 0; i < event_states.length; i++){
 		var evnt = document.getElementById("evnt-" + i);

@@ -117,6 +117,8 @@ function load_colors(colors){
 
 function load_langs(langs){
 	
+	multilanguage = true;
+
 	var cntrl = document.getElementById("control");
 	cntrl.innerHTML += "<div id=\"lang_row\"></div>";
 
