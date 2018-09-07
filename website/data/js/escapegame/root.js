@@ -19,7 +19,7 @@ var general_loaded = false;
 var hints_loaded = false;
 var dependencies_loaded = false;
 
-var multitlanguage = false;
+var multilanguage = false;
 
 function update(){
 	
