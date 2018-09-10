@@ -110,6 +110,12 @@ function load_colors(colors){
 		alarm_color = colors["alarm"];
 		
 	}
+	
+	if(typeof colors["logo"] != 'undefined'){
+		console.log("changeing logo to value: " + colors["logo"]);
+		document.getElementById('logo').src = colors["logo"];
+		
+	}
 
 	return;
 
