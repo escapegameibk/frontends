@@ -20,6 +20,7 @@ var hints_loaded = false;
 var dependencies_loaded = false;
 
 var multilanguage = false;
+jQuery.ajaxSetup({ cache: false });
 
 function update(){
 	
