@@ -55,7 +55,9 @@ function update(){
 	update_states();
 	timer_update();
 	update_dependencies();
-
+	if(hints_enabled){
+		update_hints();
+	}
 	if(alarm_enabled){
 		update_alarm();
 	}

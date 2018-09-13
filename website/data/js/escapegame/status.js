@@ -156,16 +156,17 @@ function load_finals(){
 	return;
 }
 
+var hints_load_lock = false;
 function attempt_load_hints(){
 
 	
 	jQuery.getJSON(request_base + "api.php?action=8",
 	function(hints){
 		
-		if(hints_loaded){
+		if(hints_loaded || hints_load_lock){
 			return;
 		}
-		hints_loaded = true;
+		hints_load_lock = true;
 
 		for(var evnt_i = 0; evnt_i < hints.length; evnt_i++){
 			
@@ -187,7 +188,7 @@ function attempt_load_hints(){
 					evnt_i + "-" +hnt_i);
 				hint.classList.add("btn");
 				hint.classList.add("hnt");
-				hint.classList.add("btn-primary");
+				hint.classList.add("dark");
 				if(!(typeof hints_evnt[hnt_i]["content"] != 'undefined' && !hints_evnt[hnt_i]["content"])){
 					hint.title =  hints_evnt[hnt_i]["content"];
 				}
@@ -198,7 +199,18 @@ function attempt_load_hints(){
 
 
 		}
+		/* Create a row at the bottom which shows the current hint 
+		 * count
+		 */
+		var cntrl = document.getElementById("control");
+		cntrl.innerHTML += "<div id=\"hint_row\"></div>";
+		var hntrw = document.getElementById("hint_row");
+		hntrw.classList.add("row");
+		hntrw.innerHTML += "<h4>Amount of hints: </h4><h4 id=\"hnt-amnt\">LOADING...</h4>";
 		
+		hints_loaded = true;
+		hints_load_lock = false;
+
 	});
 }
 
@@ -271,5 +283,34 @@ function update_dependencies(){
 			}
 		}
 	
+	});
+}
+
+function update_hints(){
+
+	jQuery.getJSON(request_base + "api.php?action=12",
+	function(hnt_info){
+		document.getElementById("hnt-amnt").innerHTML = 
+			hnt_info["hint_count"];
+		
+		var hnt_states = hnt_info["hint_states"];
+		for(var evnt = 0; evnt < hnt_states.length; evnt++){
+			var evnt_hnts = hnt_states[evnt];
+			for(var hnt = 0; hnt < evnt_hnts.length; hnt++){
+				var exec = evnt_hnts[hnt];
+				var hint = document.getElementById("hnt-" + evnt
+					+ "-" + hnt);
+			
+				hint.classList.remove("btn-dark");
+				hint.classList.remove("btn-info");
+				hint.classList.remove("btn-primary");
+				if(exec){
+					hint.classList.add("btn-info");
+				}else{
+					hint.classList.add("btn-primary");
+
+				}
+			}
+		}
 	});
 }
