@@ -1,0 +1,39 @@
+<?php
+include "global.php";
+?>
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Escape Game</title>
+		<meta charset="UTF-8" />
+		<meta name="author" content="tyrolyean" />
+		<style>
+html{
+	margin: 0;
+	min-height: 100%;
+}
+body{
+	margin: 0px;
+	border: 0px;
+	width: 100%;
+	min-height: 100%;
+	height: 100vh;
+	width: 100vw;
+	background: #000000;
+	text-color: #FFFFFF;
+}
+
+video{
+	height: 100%;
+	width: 100%;
+	margin:auto;
+	color: #FFFFFF;
+}
+		</style>
+	</head>
+	<body>
+	<video id="video_main">
+
+		<p>ERROR! PLEASE NOTIFY OPERATOR!</p>
+	</video>
+</html>

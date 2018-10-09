@@ -25,68 +25,9 @@ if(!isset($_POST['action']) && !isset($_GET['action'])){
         die(-1);
 }
 
-$action = 0;
-if(isset($_POST['action'])){
-        $action = $_POST['action'];
-}else{
-        $action = $_GET['action'];
-}
+header('Content-Type: application/json');
 
-$debug = false;
-
-if(!$debug){
-        header('Content-Type: application/json');
-}
-
-if($debug){
-        fwrite($sock,json_encode(["action" => 1]));
-        logger(fread($sock,2048));
-}
-
-if($action == 4 || $action == 5){
-        $event_id = 0;
-        if(isset($_POST['event'])){
-                $event_id = $_POST['event'];
-        }else{
-                $event_id = $_GET['event'];
-        }
-       
-        $output = json_encode(["action" => $action, "event" => $event_id]);
-
-}elseif($action == 11){
-        
-	$lang_id= 0;
-        if(isset($_POST['lang'])){
-                $lang_id = $_POST['lang'];
-        }else{
-                $lang_id = $_GET['lang'];
-        }
-       
-        $output = json_encode(["action" => $action, "lang" => $lang_id]);
-        
-}elseif($action == 9){
-
-        $event_id = 0;
-        if(isset($_POST['event_id'])){
-                $event_id = $_POST['event_id'];
-        }else{
-                $event_id = $_GET['event_id'];
-        }
-        
-	$hint_id = 0;
-        if(isset($_POST['hint_id'])){
-                $hint_id = $_POST['hint_id'];
-        }else{
-                $hint_id = $_GET['hint_id'];
-        }
-
-        $output = json_encode(["action" => $action, "event_id" => $event_id,
-		"hint_id" => $hint_id]);
-
-}else{
-
-        $output = json_encode(["action" => $action]);
-}
+$output = json_encode($_GET);
 
 // Open a socket on the default location
 $sock = fsockopen("unix://".$socketpath);
@@ -98,8 +39,8 @@ if(!$sock){
 }
 
 fwrite($sock,$output);
-if($action != 4){
-        echo fread($sock,20480);
-}
+
+echo stream_get_contents($sock);
+
 fclose($sock);
 
