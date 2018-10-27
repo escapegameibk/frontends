@@ -54,6 +54,9 @@ function attempt_load_general(){
 		load_general_lock = false;
 		
 		return;
+
+	}).always(function() {
+		initialize();
 	});
 
 }

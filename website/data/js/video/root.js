@@ -17,9 +17,12 @@ function update(){
 		}
 		
 		if(document.getElementById('video_main').ended){
+		
+			document.getElementById('video_main').currentTime = 0;
 			document.getElementById('video_main').play();
 		}
-		
+		document.getElementById('video_main').play();
+	
 	}).fail(function() {
 			console.log("Failed to get video URL!");
 	});

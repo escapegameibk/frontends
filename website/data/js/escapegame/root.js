@@ -22,8 +22,15 @@ var dependencies_loaded = false;
 var multilanguage = false;
 jQuery.ajaxSetup({ cache: false });
 
-function update(){
-	
+initialize();
+
+
+/* Function to initialize all structures, load all states and stuff.
+ * each function put into here needs to call this function as callback.
+ */
+
+function initialize(){
+
 	/* Load data from the server */
 	if(!general_loaded){
 		attempt_load_general();
@@ -52,6 +59,16 @@ function update(){
 
 	/* Finished loading. Now let's keep everything up to date */
 
+
+	setInterval(update,500);
+	update();
+}
+
+/* Function to keep page content up-to-date. Called in a given interval 
+ */
+
+function update(){
+	
 	update_states();
 	timer_update();
 	update_dependencies();
@@ -66,4 +83,3 @@ function update(){
 	return;
 }
 
-setInterval(update,500);

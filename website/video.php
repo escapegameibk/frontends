@@ -41,7 +41,7 @@ video{
 	</head>
 	<body>
 		<div class="video_container">
-			<video id="video_main" autoplay src="<?php echo $outsourcing; ?>/video/test.mp4" onended="on_finish();">
+			<video id="video_main" src="<?php echo $outsourcing; ?>/video/test.mp4" onended="on_finish();" autoplay>
 				ERROR! PLEASE NOTIFY OPERATOR!
 			</video>
 		</div>

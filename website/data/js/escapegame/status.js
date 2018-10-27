@@ -81,6 +81,8 @@ function attempt_load_events(){
 		events_loaded = true;
 		events_load_lock = false;
 		return;
+	}).always(function() {
+		initialize();
 	});
 	return;
 }
@@ -152,6 +154,8 @@ function load_finals(){
 		rows[i].classList.add("row-delimiter");
 	}
 	console.log("Finals loaded. Resuming normal operation");
+	
+	initialize();
 
 	return;
 }
@@ -211,6 +215,8 @@ function attempt_load_hints(){
 		hints_loaded = true;
 		hints_load_lock = false;
 
+	}).always(function() {
+		initialize();
 	});
 }
 
@@ -261,6 +267,8 @@ function attempt_load_dependencies(){
 		dependencies_load_lock = false;
 		return;
 	
+	}).always(function() {
+		initialize();
 	});
 
 }

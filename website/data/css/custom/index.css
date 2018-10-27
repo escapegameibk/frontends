@@ -32,6 +32,11 @@ body{
 	border-bottom: 1px solid black;
 }
 
+.row{
+	margin-left: 1vw;
+	margin-right: 1vw;
+}
+
 .lang_update{
 	margin-left: 1vw;
 	margin-top: 1vh;
