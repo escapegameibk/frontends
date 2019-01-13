@@ -15,7 +15,7 @@ include "global.php";
 		<script src="<?php echo $outsourcing; ?>/js/jquery/jquery-3.3.1.min.js"></script>
                 <nav id="nav" class="navbar navbar-dark bg-dark sticky-top">
                         <a href="/"><img class="navbar-brand navbar-brnd" id="logo" src="<?php echo $outsourcing;?>/image/logo-white.svg" height="50vh"></a>
-			<h1 id="countdown" class="countdown nav-item">00:00</h2>
+			<h1 id="countdown" class="countdown nav-item">00:00</h1>
                 </nav>        
                 <h1 class="name" id="name">Loading...</h1>
                 </br>

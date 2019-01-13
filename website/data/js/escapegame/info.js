@@ -133,10 +133,12 @@ function load_langs(langs){
 
 	var langrow = document.getElementById("lang_row");
 	langrow.classList.add("row");
-	
+	langrow.classList.add("form-group");	
 	langrow.innerHTML += "<select id=\"language\"></select>";
 	
 	var selector = document.getElementById("language");
+	selector.classList.add("form-control");	
+	selector.classList.add("lang_select");	
 	for(var i = 0; i < langs.length; i++){
 		var option = document.createElement("option");
 		option.text = langs[i];

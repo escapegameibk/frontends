@@ -14,14 +14,18 @@ function timer_update(){
 		}else{
 			value =  game_duration + (timer_start - (timer_end));
 		}
+		var timer_should = "";
 		if(value < 0){
-			timer.innerHTML = "-" + Math.floor(value / -60) + ":" 
-				+ ("0" + -(Math.floor(value % 60))).slice(-2);
+			 timer_should = "-" + Math.floor(value / -60) + ":" 
+				+ ("0" + -(Math.ceil(value % 60))).slice(-2);
 
 		}else{
-			timer.innerHTML = Math.floor(value / 60) + ":" 
+			timer_should = timer.innerHTML = Math.floor(value / 60) + ":" 
 				+ ("0" + (Math.floor(value % 60))).slice(-2);
 
+		}
+		if(timer.innerHTML != timer_should){
+			timer.innerHTML = timer_should;
 		}
 		
 	}
@@ -298,8 +302,13 @@ function update_hints(){
 
 	jQuery.getJSON(request_base + "api.php?action=12",
 	function(hnt_info){
-		document.getElementById("hnt-amnt").innerHTML = 
-			hnt_info["hint_count"];
+		if(document.getElementById("hnt-amnt").innerHTML != 
+			hnt_info["hint_count"]){
+			document.getElementById("hnt-amnt").innerHTML = 
+				hnt_info["hint_count"];
+
+		}
+		
 		
 		var hnt_states = hnt_info["hint_states"];
 		for(var evnt = 0; evnt < hnt_states.length; evnt++){

@@ -1,5 +1,11 @@
 .name{
         margin-left: 10vw;
+	background: inherit;
+	-webkit-background-clip: text;
+                    background-clip: text;
+	color: transparent;
+	filter: invert(1) grayscale(1) contrast(9);
+	font-weight: bold;
 }
 
 .evnt{
@@ -46,4 +52,21 @@ body{
 	margin-bottom: 1vh;
 	margin-right: 1vw;
 	
+}
+
+.lang_select{
+	width: auto;
+}
+
+.inner_footer{
+	background: inherit;
+}
+
+#footer-text{
+	background: inherit;
+	-webkit-background-clip: text;
+                    background-clip: text;
+	color: transparent;
+	filter: invert(1) grayscale(1) contrast(9);
+	font-weight: bold;
 }
