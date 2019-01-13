@@ -14,16 +14,10 @@ function timer_update(){
 		}else{
 			value =  game_duration + (timer_start - (timer_end));
 		}
-		var timer_should = "";
-		if(value < 0){
-			 timer_should = "-" + Math.floor(value / -60) + ":" 
-				+ ("0" + -(Math.ceil(value % 60))).slice(-2);
+		value = Math.round(value);
+		var timer_should = ((value < 0) ? '-' : '');
+		timer_should += get_clock(new Date(Math.abs(value * 1000)));
 
-		}else{
-			timer_should = timer.innerHTML = Math.floor(value / 60) + ":" 
-				+ ("0" + (Math.floor(value % 60))).slice(-2);
-
-		}
 		if(timer.innerHTML != timer_should){
 			timer.innerHTML = timer_should;
 		}
@@ -32,6 +26,18 @@ function timer_update(){
 
 	return;
 }
+
+function get_clock(time) {
+	var hour = time.getUTCHours();
+	var minute = time.getUTCMinutes();
+	var second = time.getUTCSeconds();
+	var temp = '';
+	temp += ((hour < 10) ? '0' : '') + hour;
+	temp += ((minute < 10) ? ':0' : ':') + minute;
+	temp += ((second < 10) ? ':0' : ':') + second;
+	return temp;
+}
+
 
 var events_load_lock = false;
 
@@ -235,6 +241,8 @@ function attempt_load_dependencies(){
 		}
 
 		dependencies_load_lock = true;
+		console.log("Loafing a total of "+dependencies.length+
+		" dependencies");
 
 		for(var i = 0; i < dependencies.length; i++){
 			var dp = dependencies[i];
@@ -277,6 +285,10 @@ function attempt_load_dependencies(){
 
 }
 
+var dependency_high_color = "#28A745";
+var dependency_low_color = "#DC3545";
+
+
 function update_dependencies(){
 
 	jQuery.getJSON(request_base + "api.php?action=7",
@@ -285,14 +297,15 @@ function update_dependencies(){
 		for(var i = 0; i < dependencies.length; i++){
 			var dep = document.getElementById("dep-" + i);
 			dep.classList.remove("btn-dark");
-			dep.classList.remove("btn-success");
-			dep.classList.remove("btn-danger");
 	
-			if(dependencies[i] == 0){
-				dep.classList.add("btn-danger");
-			}else{
-				dep.classList.add("btn-success");
-			}
+			var back = "linear-gradient(to right, "+
+			dependency_low_color+" "+(100-dependencies[i]*100)+"%, "
+			+dependency_high_color+" "+(100-dependencies[i]*100)+
+			"% "+" 100%)";
+			
+			dep.border = "none";
+			dep.style.background = back;
+			dep.style.color = "white";
 		}
 	
 	});
