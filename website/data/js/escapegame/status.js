@@ -301,7 +301,7 @@ function update_dependencies(){
 			var back = "linear-gradient(to right, "+
 			dependency_low_color+" "+(100-dependencies[i]*100)+"%, "
 			+dependency_high_color+" "+(100-dependencies[i]*100)+
-			"% "+" 100%)";
+			"%)";
 			
 			dep.border = "none";
 			dep.style.background = back;
