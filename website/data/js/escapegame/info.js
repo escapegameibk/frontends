@@ -21,8 +21,10 @@ function attempt_load_general(){
 		console.log("The game's name is set to " + game_name);
 		document.getElementById("name").innerHTML = game_name;
 		document.title = game_name;
-
-		if(!(typeof info["hints"] != 'undefined' && !info["hints"])){
+		
+		if(typeof info["hints"] == 'undefined' || !info["hints"]){
+			hints_enabled = false;
+		}else{
 			hints_enabled = true;
 		}
 		
@@ -117,6 +119,29 @@ function load_colors(colors){
 	if(typeof colors["logo"] != 'undefined'){
 		console.log("changeing logo to value: " + colors["logo"]);
 		document.getElementById('logo').src = colors["logo"];
+		
+	}
+	
+	if(typeof colors["fluid"] != 'undefined'){
+		console.log("changeing fluidity of body: " + colors["fluid"]);
+		document.getElementById('status').classList.remove(
+			"container-fluid", "container");
+		document.getElementById('control').classList.remove(
+			"container-fluid", "container");
+
+		if(colors["fluid"]){
+			document.getElementById('status').classList.add(
+				"container-fluid", "container_fluid_cust");
+			document.getElementById('control').classList.add(
+				"container-fluid", "container_fluid_cust");
+
+		}else{
+			document.getElementById('status').classList.add(
+				"container");
+			document.getElementById('control').classList.add(
+				"container");
+
+		}
 		
 	}
 

@@ -70,3 +70,9 @@ body{
 	filter: invert(1) grayscale(1) contrast(9);
 	font-weight: bold;
 }
+
+.container_fluid_cust{
+	width: auto;
+	margin-left: 2vw;
+	margin-right: 2vw;
+}
