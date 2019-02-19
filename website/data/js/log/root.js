@@ -3,15 +3,17 @@ var request_base = location.protocol + "//" + window.location.hostname +
 
 console.debug("Using " + request_base + " as request base");
 
-var last_linecount = 0;
+/* Last linecount is the up to now presented amount of lines, lastlen is the
+ * current log file size. */
+var last_linecount = 0, last_len = 0;
 
 function update(){
 	jQuery.getJSON(request_base + "api.php?action=15",
 	function(data) {
-		if(data != last_linecount){
-			last_linecount = data;
+		if(data != last_len){
+			last_len = data;
 			console.log("Updateing log to newly " + data + 
-				" lines!");
+				" bytes!");
 			update_lines();
 		}
 	
@@ -20,6 +22,8 @@ function update(){
 	});
 }
 
+update();
+
 setInterval(update,1000);
 
 function update_lines(){
@@ -27,22 +31,29 @@ function update_lines(){
 	jQuery.getJSON(request_base + "api.php?action=16",
 	function(data) {
 		
-		document.getElementById('log').innerHTML = ''; 
 		var ansi_up = new AnsiUp;
-		data.split("\n").forEach(function(element) {
-		
-			document.getElementById('log').innerHTML += 
-				ansi_up.ansi_to_html(element.replace('\t', 
-				"        ")) + "<br/>";
+		var splitted = data.replace('\t', "&Tab;")
+			.replace(" ", "&nbsp;").split("\n");
 
-		});
+		if(splitted.length < last_linecount || last_linecount == 0){
+			/* Reset */
+			document.getElementById('log').innerHTML = '';
+		}
+
+		for(var i = last_linecount; i < splitted.length; i++){
+			
+			document.getElementById('log').innerHTML += 
+				ansi_up.ansi_to_html(splitted[i]) + "<br/>";
+			last_linecount ++;
+
+		}
 
 		window.scrollTo(0,document.body.scrollHeight);
 		
 	
 	}).fail(function() {
 		console.log("Failed to get log content!");
-		last_linecout = 0;
+		last_len = 0;
 	});
 	
 
