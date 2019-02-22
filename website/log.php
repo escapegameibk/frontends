@@ -36,7 +36,7 @@ body{
 				<div class="card-header">
 					<h1>Escape Game System log</h1>
 				</div>
-				<div class="car-body bg-dark text-white">
+				<div class="card-body bg-dark text-white">
 				<pre id="log" class="bg-dark text-white">
 					<h1>Loading...</h1>
 

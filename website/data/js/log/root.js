@@ -35,17 +35,21 @@ function update_lines(){
 		var splitted = data.split("\n");
 
 		if(splitted.length < last_linecount || last_linecount == 0){
-			/* Reset */
+			/* Clear */
 			document.getElementById('log').innerHTML = '';
 		}
 
 		for(var i = last_linecount; i < splitted.length; i++){
 			
+			if(splitted[i] == ""){
+				continue;
+			}
+
 			document.getElementById('log').innerHTML += 
-				ansi_up.ansi_to_html(splitted[i]) + "\r\n";
-			last_linecount ++;
+				ansi_up.ansi_to_html(splitted[i]) + "<br/>";
 
 		}
+		last_linecount = splitted.length - 1;
 
 		window.scrollTo(0,document.body.scrollHeight);
 		
