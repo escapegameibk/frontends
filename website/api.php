@@ -1,6 +1,6 @@
 <?php
 
-/* API for the controller software at the escape game ibk
+/* API for the escape game system's host
  * Copyright © 2018 tyrolyean
 
  * This program is free software: you can redistribute it and/or modify
@@ -17,25 +17,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-include("global.php");
+$socketpath = "/var/run/escape/socket";
+
+header('Content-Type: application/json');
 
 // check for variables
 if(!isset($_POST['action']) && !isset($_GET['action'])){
-        http_response_code(417);
-        die(-1);
+        http_response_code(412);
+        die("{\"error\" : \"no action\"}");
 }
 
-header('Content-Type: application/json');
 
 $output = json_encode($_GET);
 
 // Open a socket on the default location
 $sock = fsockopen("unix://".$socketpath);
+
 if(!$sock){
 
-        logger("UNABLE TO OPEN SOCKET!".$errno." ".$errstr);
+	/* Unavailable */
         http_response_code(503);
-        die(-2);
+        die("{\"error\" : \"unavailable\"}");
 }
 
 fwrite($sock,$output);

@@ -32,8 +32,7 @@ function update_lines(){
 	function(data) {
 		
 		var ansi_up = new AnsiUp;
-		var splitted = data.replace('\t', "&Tab;")
-			.replace(" ", "&nbsp;").split("\n");
+		var splitted = data.split("\r\n");
 
 		if(splitted.length < last_linecount || last_linecount == 0){
 			/* Reset */
@@ -43,7 +42,7 @@ function update_lines(){
 		for(var i = last_linecount; i < splitted.length; i++){
 			
 			document.getElementById('log').innerHTML += 
-				ansi_up.ansi_to_html(splitted[i]) + "<br/>";
+				ansi_up.ansi_to_html(splitted[i]) + "\n";
 			last_linecount ++;
 
 		}
