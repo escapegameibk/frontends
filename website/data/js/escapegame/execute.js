@@ -50,3 +50,11 @@ function update_language(){
 
 }
 
+function send_control_update(control, value){
+
+	jQuery.getJSON(request_base+"api.php?action=19&control=" + control+
+		"&value="+value,
+		function(result){});
+	return;
+
+}

@@ -36,7 +36,6 @@ function attempt_load_general(){
 			console.log("Applied color scheme");
 		}
 
-
 		if(!(typeof info["alarm"] == 'undefined' || !info["alarm"])){
 			alarm_enabled = true;
 			console.log("The alarm is enabled.");
@@ -47,10 +46,17 @@ function attempt_load_general(){
 			console.log("Languages are defined: " + info["langs"]);
 			load_langs(info["langs"]);
 		}
+		
+		if(typeof info["controls"] != 'undefined'){
+			console.log("Controls are defined. attempting to load...");
+			load_controls(info["controls"]);
+			console.log("Controls displayed!");
+		}
 		/* Set the game name */
 		
 		game_duration = Number(info["duration"]);
 		console.log("Game duration set to " + game_duration);
+
 
 		general_loaded = true;
 		load_general_lock = false;
@@ -179,6 +185,64 @@ function load_langs(langs){
 	btn.classList.add("lang_update");
 	
 	btn.innerHTML = "Update";
+
+	return;
+}
+
+function change_control(e){
+	console.log("Changed control "+e+" to " +
+		document.getElementById("control_"+e).value );
+	send_control_update(e, document.getElementById("control_"+e).value);
+
+}
+
+function load_controls(controls){
+	
+	console.log("Loading " + controls.length + " controls");
+
+	for(var i = 0; i < controls.length; i++){
+		var control = controls[i];
+
+		if(control["type"] == "linear"){
+
+			var row = document.createElement("div");
+			row.classList.add("container");
+			
+			var group = document.createElement("div");
+			group.classList.add("form-group");
+
+			var lab = document.createElement("label");
+			lab.setAttribute("for", "control_" + i);
+
+			lab.innerHTML = "<h3><b>"+control["name"]+"</b></h3>";
+
+			group.appendChild(lab);
+			row.appendChild(group);
+			document.getElementById("control").appendChild(row);
+			
+			group.innerHTML += "<input id=\"control_"+i
+				+"\" onchange=\"change_control("
+				+i+")\"></input>";
+
+			var slider = document.getElementById("control_"+i);
+			slider.id = "control_"+i;
+			slider.type = "range";
+			slider.min = control["min"];
+			slider.max = control["max"];
+			slider.value = control["initial"];
+			slider.step = control["step"];
+			slider.classList.add("control_linear");
+			slider.classList.add("form-control");
+
+			
+
+
+		}else{
+			console.log("Unknown control type specified!"+
+				" Ignoreing");
+		}
+
+	}
 
 	return;
 }
