@@ -22,6 +22,11 @@ var dependencies_loaded = false;
 var multilanguage = false;
 jQuery.ajaxSetup({ cache: false });
 
+var event_reset = 0;
+var event_executeing = 0;
+var event_executed = 0;
+var event_forcefully_executed = 0;
+
 initialize();
 
 

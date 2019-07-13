@@ -138,11 +138,32 @@ function(states){
 		evnt.classList.remove("btn-dark");
 		evnt.classList.remove("btn-success");
 		evnt.classList.remove("btn-danger");
+		evnt.classList.remove("btn-warning");
+		evnt.classList.remove("btn-outline-success");
+		if(event_reset >= 0){
+			switch(event_states[i]){
+				default:
+				case event_reset:
+					evnt.classList.add("btn-danger");
+					break;
+				case event_executeing:
+					evnt.classList.add("btn-warning");
+					break;
+				case event_executed:
+					evnt.classList.add("btn-success");
+					break;
+				case event_forcefully_executed:
+					evnt.classList.add("btn-outline-success");
+					break;
+			}
 
-		if(event_states[i] == 0){
-			evnt.classList.add("btn-danger");
 		}else{
-			evnt.classList.add("btn-success");
+			if(event_states[i] == 0){
+				evnt.classList.add("btn-danger");
+			}else{
+				evnt.classList.add("btn-success");
+			}
+
 		}
 	}
 

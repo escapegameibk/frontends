@@ -13,10 +13,11 @@ function attempt_load_general(){
 		var version = info["version"];
 		console.log("Host version " + version_array_to_string(version));
 		
-		/* Add version info to footer*/
+		/* Add version info to footer for debug ease */
 		document.getElementById("footer-text").innerHTML =
 			version_array_to_string(version);
 
+		/* Set the game name */
 		var game_name = info["game"];
 		console.log("The game's name is set to " + game_name);
 		document.getElementById("name").innerHTML = game_name;
@@ -52,7 +53,21 @@ function attempt_load_general(){
 			load_controls(info["controls"]);
 			console.log("Controls displayed!");
 		}
-		/* Set the game name */
+
+		if(typeof info["event_states"] != 'undefined'){
+			console.log("Game is capable of distincting event "+
+				"execution stages");
+			var event_states = info["event_states"];
+			event_reset = event_states['reset'];
+			event_executeing = event_states['executeing'];
+			event_executed = event_states['triggered'];
+			event_forcefully_executed = 
+				event_states['forcefully_triggered'];
+		}else{
+			/* If the value of event_reset is negative the frontend
+			 * will quite simply just make a boolean evaluation */
+			event_reset = -1;
+		}
 		
 		game_duration = Number(info["duration"]);
 		console.log("Game duration set to " + game_duration);

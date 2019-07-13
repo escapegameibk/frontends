@@ -3,7 +3,9 @@
 function press_event(event_id){
 	var btn = document.getElementById("evnt-" + event_id);
 
-	if(btn.classList.contains("btn-success")){
+	if(btn.classList.contains("btn-success") || 
+		btn.classList.contains("btn-outline-success")){
+		
 		untrigger_event(event_id);
 	}
 	if(btn.classList.contains("btn-danger")){
